@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JoeyDoesUI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg: #0b0b0d;
+      --panel: rgba(255,255,255,0.06);
+      --accent: #e84545;
+      --accent-soft: rgba(232,69,69,0.15);
+      --text: #ffffff;
+      --muted: #b3b3b3;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {    
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background:
+        linear-gradient(to top, rgba(232,69,69,0.25), transparent 20%),
+        radial-gradient(circle at top, #1a1a1f, var(--bg));
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 8%;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.55);
+      z-index: 10;
+    }
+
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--accent);
+    }
+
+    .logo img {
+      width:38px;
+      height:38px;
+      object-fit:contain;
+    }
+
+    .nav-links a {
+      margin-left: 28px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 120px 8% 80px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-buttons {
+      margin-top: 34px;
+      display: flex;
+      gap: 18px;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 10px 30px var(--accent-soft);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px var(--accent-soft);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border-radius: var(--radius);
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px var(--accent-soft);
+    }
+
+    .hero-card h3 {
+      color: var(--accent);
+    }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-soft);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 50px;
+    }
+
+    /* SKILLS */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 26px;
+    }
+
+    .skill {
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 26px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform .2s;
+    }
+
+    .skill:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--accent-soft); }
+
+    .skill h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    /* WORK */
+    
+    .work img {
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+      margin: 0 0 16px 0;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+.work img:hover {
+  transform: scale(1.015);
+  box-shadow: 0 12px 40px rgba(232,69,69,0.25);
+}
+.work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .work {
+      padding: 28px;
+      background: var(--panel);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .work-info h3 {
+      color: var(--accent);
+    }
+
+    
+    .work:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px var(--accent-soft);
+    }
+/* PRICING TITLES */
+    .pricing-card h3 {
+      color: var(--accent) !important;
+    }
+
+    /* CONTACT */
+    .contact-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(0,0,0,0.55);
+      border-radius: 28px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .contact-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      margin:0 0 20px;
+    }
+
+    .contact-header h2 {
+      margin: 0;
+      color: var(--accent);
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 12px;
+      margin-left: auto;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn.small {
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      border-radius: 999px;
+    }
+
+    .contact-form-card {
+      margin-top: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0;
+      max-width: 100%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 24px;
+      padding: 60px 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .contact-form textarea {
+      border-radius: 24px;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+  /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .slide-in-left {
+      transform: translateX(-40px);
+      opacity: 0;
+    }
+
+    .slide-in-right {
+      transform: translateX(40px);
+      opacity: 0;
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: white;
+      cursor: pointer;
+      padding: 20px;
+      user-select: none;
+    }
+
+    .lightbox-btn.prev { left: 30px; }
+    .lightbox-btn.next { right: 30px; }
+
+    .lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: white;
+    }
+
+    .btn.small {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+  
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* CARD HOVER ANIMATION */
+.skill, .work, .hero-card, .pricing-card {
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease;
+}
+
+.skill:hover, .work:hover, .hero-card:hover, .pricing-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 60px var(--accent-soft);
+}
+
+
+
+
+</style>
+</head>
+<body>
+<nav>
+<div class="logo">
+<img src="https://image2url.com/r2/default/images/1773588663592-a97ea4fd-37d5-4768-b88c-44dc007fcef8.blob" alt="JoeyDoesUI logo">
+<span>JoeyDoesUI</span>
+</div>
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#work">Work</a>
+<a href="#prices">Prices</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+<section class="hero">
+<div>
+<h1>UI &amp; Graphic Designer<br/><span>Creating clean, modern visuals</span></h1>
+<p>
+      Hi, I’m Joey — a UI and graphic designer focused on bold interfaces, strong branding, and clean visual systems. I’ve been designing since 2020, mainly working on Roblox UI, apps, and digital products.
+    </p>
+<div class="hero-buttons">
+<a class="btn" href="#work">View Work</a>
+<a class="btn secondary" href="#contact">Contact Me</a>
+</div>
+<div style="margin-top:18px;display:flex;gap:14px;align-items:center">
+<a class="social-btn" href="https://discordapp.com/users/829307580643541002" target="_blank">
+<img alt="Discord" src="https://static.vecteezy.com/system/resources/thumbnails/065/386/541/small/discord-white-icon-logo-app-transparent-background-premium-social-media-design-for-digital-download-free-png.png" style="width:24px;height:24px;"/>
+</a>
+<a class="social-btn" href="https://x.com/JoeyDoesUI" target="_blank">
+<img alt="Twitter" src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" style="width:20px;height:20px;"/>
+</a>
+<a class="social-btn" href="mailto:joey.errico1711@gmail.com">
+<img alt="Email" src="https://img.icons8.com/?size=100&amp;id=6H65NWsqha0Z&amp;format=png&amp;color=ffffff" style="width:24px;height:24px;"/>
+</a>
+</div>
+</div>
+<div class="hero-card">
+<h3>What I Do</h3>
+<p>• UI Design (Apps &amp; Games)<br/>
+       • Roblox Interfaces<br/>
+       • Graphic Design &amp; Logos<br/>
+       • Style Exploration &amp; Concepts</p>
+</div>
+</section>
+<section id="about">
+<h2 class="section-title">About Me</h2>
+<p class="section-sub">
+    I care deeply about quality and detail. I adapt my style to match the client’s vision while always pushing the design to look polished, modern, and professional.
+  </p>
+<div class="skills">
+<div class="skill"><h3>UI Design</h3><p>Clean layouts, hierarchy, spacing, and usability-first design.</p></div>
+<div class="skill"><h3>Visual Styles</h3><p>Simulator, horror, anime, minimal, and experimental styles.</p></div>
+<div class="skill"><h3>Branding</h3><p>Logos, graphic elements, and cohesive design systems.</p></div>
+</div>
+</section>
+<section id="work">
+  <h2 class="section-title">Selected Work</h2>
+  <p class="section-sub">A few examples of my recent UI and graphic projects.</p>
+
+  <div class="work-grid">
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588483856-af34a37d-9e1d-445c-96d2-35afff9fd1c0.blob" alt="Sandshire deployment screen UI" loading="lazy">
+      <div class="work-info">
+        <h3>Sandshire — Deployment Screen</h3>
+        <p>Cinematic scene-backed UI with readable text blocks and a prominent deploy CTA.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588119837-e521a6c4-452a-4b9a-80b9-26fc0504dbd7.blob" alt="Anime-style neon button set" loading="lazy">
+      <div class="work-info">
+        <h3>Anime-Style Buttons — UI Pack</h3>
+        <p>Neon-styled navigation buttons with color coding and strong icon readability.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588481171-682bc699-ee31-4843-bd58-791826a4f803.blob" alt="Music player desktop app interface concept" loading="lazy">
+      <div class="work-info">
+        <h3>Music Player — Desktop App Concept</h3>
+        <p>Library-focused layout with playlist navigation and an anchored playback bar.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588120396-a1d18249-8106-46ac-852e-0185b088fcb9.blob" alt="Bassline audio mixing UI concept" loading="lazy">
+      <div class="work-info">
+        <h3>Bassline — Audio Mixer UI</h3>
+        <p>Dark, minimal mixer layout with strong hierarchy and channel controls.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588118822-fa46ebd6-88cd-4e5b-a1dc-43469bc034bf.blob" alt="Modern horror game menu UI" loading="lazy">
+      <div class="work-info">
+        <h3>Modern Horror Menu — Game UI</h3>
+        <p>Modern play screen menu UI for a horror game.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588480510-073809df-3aed-42d0-a125-38689f39eadd.blob" alt="Racing game main menu UI" loading="lazy">
+      <div class="work-info">
+        <h3>Racing Menu — Game UI</h3>
+        <p>Clean hero tile layout with fast-access buttons and strong spacing.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588120916-27dfe6f0-1fdb-4944-bb78-5e044116a8b7.blob" alt="Welcome popup overlay UI" loading="lazy">
+      <div class="work-info">
+        <h3>Welcome Overlay — Roblox UI</h3>
+        <p>Bold welcome modal with a single primary action for quick onboarding.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588119341-880932eb-2428-4885-a22e-eaebd8aa248f.blob" alt="City simulator overview HUD interface" loading="lazy">
+      <div class="work-info">
+        <h3>City Simulator HUD — Interface Concept</h3>
+        <p>Top/bottom HUD layout designed to keep gameplay readable and uncluttered.</p>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://image2url.com/r2/default/images/1773588481773-19ba1d30-d2c0-4263-95ac-97dbb08e43e1.blob" alt="Verse Battle and Song Battle mode selection screen UI" loading="lazy">
+      <div class="work-info">
+        <h3>Verse Battle / Song Battle — Mode Select</h3>
+        <p>Glowing card-based selection screen with clear CTAs and icon emphasis.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section id="prices">
+<h2 class="section-title">Pricing</h2>
+<p class="section-sub">Clear and flexible pricing depending on project complexity.</p>
+<div class="work-grid pricing-grid">
+<div class="work pricing-card">
+<h3>Basic</h3>
+<p>• Simple UI / Graphic<br/>• 1–2 screens<br/>• Quick turnaround</p>
+<strong>£10–£20</strong>
+</div>
+<div class="work pricing-card">
+<h3>Standard</h3>
+<p>• Full UI system<br/>• Multiple screens<br/>• Revisions included</p>
+<strong>£25–£40</strong>
+</div>
+<div class="work pricing-card">
+<h3>Premium</h3>
+<p>• Advanced UI / Branding<br/>• Custom style<br/>• Priority work</p>
+<strong>£50+</strong>
+</div>
+</div>
+</section>
+<section id="contact">
+<div class="contact-card">
+<div class="contact-header" style="margin-bottom:25px;">
+<h2>Contact Me</h2>
+<div class="contact-actions">
+<a class="btn secondary small" href="https://discordapp.com/users/829307580643541002">
+<img alt="Discord" class="btn-icon" src="https://static.vecteezy.com/system/resources/thumbnails/065/386/541/small/discord-white-icon-logo-app-transparent-background-premium-social-media-design-for-digital-download-free-png.png"/>
+          Discord
+        </a>
+<a class="btn secondary small" href="https://x.com/JoeyDoesUI">
+<img alt="Twitter" class="btn-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"/>
+          Twitter
+        </a>
+<a class="btn secondary small" href="mailto:joey.errico1711@gmail.com">
+<img alt="Email" class="btn-icon" src="https://img.icons8.com/?size=100&amp;id=6H65NWsqha0Z&amp;format=png&amp;color=ffffff"/>
+          Email
+        </a>
+</div>
+</div>
+<div class="contact-form-card">
+<form action="mailto:joey.errico1711@gmail.com" class="contact-form" enctype="text/plain" method="post">
+<input name="Discord" placeholder="Discord Username" required="" type="text"/>
+<input name="Email" placeholder="Your Email" required="" type="email"/>
+<textarea name="Message" placeholder="Tell me about your project..." required="" rows="5"></textarea>
+<button class="btn" type="submit">Send Message</button>
+</form>
+</div>
+</div>
+</section>
+<footer>
+  © 2026 JoeyDoesUI. All rights reserved.
+</footer>
+<div class="lightbox" id="lightbox">
+<span class="lightbox-close" onclick="closeLightbox()">✕</span>
+<span class="lightbox-btn prev" onclick="changeSlide(-1)">‹</span>
+<img alt="Work Preview" id="lightbox-img" src=""/>
+<span class="lightbox-btn next" onclick="changeSlide(1)">›</span>
+</div>
+<script>
+const workImages = [...document.querySelectorAll('#work .work img')];
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+let currentIndex = 0;
+
+// make images obviously clickable
+workImages.forEach((img, index) => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', () => openLightbox(index));
+});
+
+function openLightbox(index) {
+  currentIndex = index;
+  lightboxImg.src = workImages[currentIndex].src;
+  lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('active');
+}
+
+function changeSlide(direction) {
+  const img = lightboxImg;
+
+  img.style.opacity = '0';
+
+  setTimeout(() => {
+    currentIndex =
+      (currentIndex + direction + workImages.length) % workImages.length;
+    img.src = workImages[currentIndex].src;
+    img.style.opacity = '1';
+  }, 180);
+}
+</script>
+
+<script>
+// SCROLL REVEAL (SAFE — DOES NOT BREAK HERO)
+
+const revealTargets = document.querySelectorAll(
+  'section:not(.hero), .work, .skill, .pricing-card, .hero-card'
+);
+
+revealTargets.forEach(el => el.classList.add('reveal'));
+
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+revealTargets.forEach(el => revealObserver.observe(el));
+</script>
+
+<script>
+// PURE JAVASCRIPT CURSOR DOT (NO CSS DEPENDENCY)
+
+// create dot element
+const dot = document.createElement('div');
+document.body.appendChild(dot);
+
+// base styles via JS
+dot.style.position = 'fixed';
+dot.style.width = '10px';
+dot.style.height = '10px';
+dot.style.borderRadius = '50%';
+dot.style.background = 'var(--accent)';
+dot.style.pointerEvents = 'none';
+dot.style.zIndex = '9999';
+dot.style.transform = 'translate(-50%, -50%)';
+dot.style.transition = 'width 0.2s ease, height 0.2s ease';
+
+// glow element
+const glow = document.createElement('div');
+document.body.appendChild(glow);
+
+glow.style.position = 'fixed';
+glow.style.width = '320px';
+glow.style.height = '320px';
+glow.style.borderRadius = '50%';
+glow.style.background = 'var(--accent)';
+glow.style.filter = 'blur(90px)';
+glow.style.opacity = '0.2';
+glow.style.pointerEvents = 'none';
+glow.style.zIndex = '9998';
+glow.style.transform = 'translate(-50%, -50%)';
+
+let mouseX = 0;
+let mouseY = 0;
+let dotX = 0;
+let dotY = 0;
+
+window.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateCursor() {
+  dotX += (mouseX - dotX) * 0.08;
+  dotY += (mouseY - dotY) * 0.08;
+
+  dot.style.left = dotX + 'px';
+dot.style.top = dotY + 'px';
+
+glow.style.left = dotX + 'px';
+glow.style.top = dotY + 'px';
+
+  requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+
+// hover grow handled fully in JS
+const hoverTargets = document.querySelectorAll('a, button, .btn, .social-btn');(el => {
+  el.addEventListener('mouseenter', () => {
+    dot.style.width = '18px';
+    dot.style.height = '18px';
+  });
+
+  el.addEventListener('mouseleave', () => {
+    dot.style.width = '10px';
+    dot.style.height = '10px';
+  });
+});
+</script>
+
+</body>
+</html>
