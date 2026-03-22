@@ -38,6 +38,7 @@
 
     /* NAV */
     nav {
+      z-index: 3;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -161,6 +162,8 @@
 
     /* SECTIONS */
     section {
+  position: relative;
+  z-index: 2;
       padding: 90px 8%;
     }
 
@@ -330,6 +333,8 @@
     }
 
     footer {
+  position: relative;
+  z-index: 2;
       padding: 30px;
       text-align: center;
       color: var(--muted);
@@ -436,6 +441,28 @@
 
 
 
+
+/* RISING RED PARTICLES */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1; /* ABOVE background, BELOW content */
+}
+
+/* FORCE ALL CARDS ABOVE PARTICLES */
+.hero-card,
+.skill,
+.work,
+.pricing-card,
+.contact-card,
+.contact-form-card {
+  position: relative;
+  z-index: 2;
+  background-clip: padding-box;
+}
+
+/* content naturally sits above background */
 
 </style>
 </head>
@@ -765,6 +792,68 @@ const hoverTargets = document.querySelectorAll('a, button, .btn, .social-btn');(
     dot.style.height = '10px';
   });
 });
+</script>
+
+<!-- RED RISING PARTICLES -->
+<canvas id="particles"></canvas>
+
+<script>
+// RISING RED PARTICLES (CANVAS)
+const pCanvas = document.getElementById('particles');
+const pCtx = pCanvas.getContext('2d');
+
+function resizeParticles() {
+  pCanvas.width = window.innerWidth;
+  pCanvas.height = window.innerHeight;
+}
+resizeParticles();
+window.addEventListener('resize', resizeParticles);
+
+const particleCount = 70;
+const particleArray = [];
+
+for (let i = 0; i < particleCount; i++) {
+  particleArray.push({
+    x: Math.random() * pCanvas.width,
+    y: pCanvas.height * (0.5 + Math.random() * 0.5),
+    r: Math.random() * 2.4 + 1.2,
+    speed: Math.random() * 0.9 + 0.6,
+    alpha: Math.random() * 0.2 + 0.15
+  });
+}
+
+let scrollBoost = 1;
+let scrollTimeout;
+
+window.addEventListener('scroll', () => {
+  scrollBoost = 3.8; // speed up while scrolling
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    scrollBoost = 1; // ease back to normal
+  }, 120);
+});
+
+function animateParticles() {
+  pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+
+  particleArray.forEach(p => {
+    p.y -= p.speed * scrollBoost;
+
+    if (p.y < pCanvas.height * 0.5 - 10) {
+      p.y = pCanvas.height + Math.random() * 40;
+      p.x = Math.random() * pCanvas.width;
+    }
+
+    pCtx.beginPath();
+    pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    pCtx.fillStyle = `rgba(232, 69, 69, ${p.alpha})`;
+    pCtx.fill();
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
 </script>
 
 </body>
