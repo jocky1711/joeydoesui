@@ -414,81 +414,7 @@ section .section-title {
     }
 
     @media (max-width: 900px) {
-  nav {
-    padding: 20px 6%;
-  }
-
-  .nav-links {
-    display: none; /* clean mobile header */
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 90px 6% 60px;
-    gap: 40px;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.2rem, 8vw, 3.2rem);
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-
-  .hero-buttons {
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-
-  section {
-    padding: 70px 6%;
-  }
-
-  .section-title {
-    font-size: 1.9rem;
-  }
-
-  .work-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .skills {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-card {
-    padding: 36px 26px;
-    border-radius: 22px;
-  }
-
-  .contact-form-card {
-    padding: 40px 26px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: clamp(2rem, 9vw, 2.8rem);
-  }
-
-  .hero p {
-    font-size: 0.95rem;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .contact-actions {
-    justify-content: flex-start;
-  }
-}
+      .hero { grid-template-columns: 1fr; }
     }
   /* LIGHTBOX */
     .lightbox {
@@ -529,11 +455,6 @@ section .section-title {
       cursor: pointer;
       padding: 20px;
       user-select: none;
-      display: none; /* hidden by default */
-    }
-
-    .lightbox.active .lightbox-btn {
-      display: block; /* only show when lightbox is open */
     }
 
     .lightbox-btn.prev { left: 30px; }
