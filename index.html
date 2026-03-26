@@ -604,6 +604,32 @@ section:not(.hero) .section-title.play::before {
   z-index: 3;
   pointer-events: none;
 }
+  #logos {
+  margin-top: 120px;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.logo-grid img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  padding: 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.logo-grid img:hover {
+  transform: translateY(-6px) scale(1.03);
+  background: rgba(255, 255, 255, 0.07);
+}
 
 </style>
 </head>
@@ -745,6 +771,45 @@ section:not(.hero) .section-title.play::before {
 
   </div>
 </section>
+<section id="logos">
+  <h2 class="section-title">Logos</h2>
+  <p class="section-sub">
+    A selection of logo marks and brand identities created for games, apps, and digital brands.
+  </p>
+
+  <div class="work-grid logo-grid">
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774552853582-b9bca652-4e8d-4a43-8427-88d8a4f5b778.png" alt="Logo 1" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774552896361-91c9d0ed-e88e-478c-bc8b-8732ee168f8d.png" alt="Logo 2" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774552947045-fd6e2fea-e2fa-4d5d-b87e-65b7359befc3.png" alt="Logo 3" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774553015852-473fd99f-c0a6-4562-a3c4-b3e1ad0e951d.png" alt="Logo 4" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774552728079-31b54b9b-fe95-4e66-a752-f8382bfe85eb.png" alt="Logo 5" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774553108407-eb531a77-3e0f-41f7-9368-f9af31effcf0.png" alt="Logo 6" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774553165824-c6cd701a-2bfd-4b5e-89e6-2f0b49593d7d.png" alt="Logo 7" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774553194860-49e3ac5a-456d-4691-8283-a608b598576b.png" alt="Logo 8" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774553286683-ab1e40b6-5e78-462e-8034-d06f1257b464.png" alt="Logo 9" loading="lazy">
+    </div>
+    <div class="work logo-item">
+      <img src="https://image2url.com/r2/default/images/1774553314136-eed5951e-c0d2-4be4-9fc1-c551a230a6b2.png" alt="Logo 10" loading="lazy">
+    </div>
+  </div>
+</section>
 <section id="prices">
 <h2 class="section-title">Pricing</h2>
 <p class="section-sub">Clear and flexible pricing depending on project complexity.</p>
@@ -806,7 +871,7 @@ section:not(.hero) .section-title.play::before {
 <span class="lightbox-btn next" onclick="changeSlide(1)">›</span>
 </div>
 <script>
-const workImages = [...document.querySelectorAll('#work .work img')];
+const workImages = [...document.querySelectorAll('.work img')];
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 
